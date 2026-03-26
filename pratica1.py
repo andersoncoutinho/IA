@@ -4,16 +4,16 @@ from pyamaze import maze,agent,COLOR
 from collections import deque
 from sys import maxsize
 
-# import tkinter as tk
+import tkinter as tk
 
-# orig_state = tk.Tk.state
+orig_state = tk.Tk.state
 
-# def patched_state(self, newstate=None):
-#     if newstate == "zoomed":
-#         newstate = "normal"
-#     return orig_state(self, newstate)
+def patched_state(self, newstate=None):
+    if newstate == "zoomed":
+        newstate = "normal"
+    return orig_state(self, newstate)
 
-# tk.Tk.state = patched_state
+tk.Tk.state = patched_state
 
 def BFS(m,start=None):
     if start is None:
@@ -91,29 +91,29 @@ def DLS(m, start=None, limit=maxsize):
     return dSearch,dlsPath,fwdPath
 
 # Os parâmetros são o comprimento e a largura do mapa, respectivamente
-dimensions = (10,10)
+dimensions = (15,15)
 m=maze(dimensions[0],dimensions[1])
 # x e y são as coordenadas que se deseja chegar
 # loopPercent é um parâmetro que quanto mais alto maior é a quantidade
 # de caminhos possíveis até o objetivo
-m.CreateMaze(x=1, y=5, loopPercent=50) 
+m.CreateMaze(x=1, y=7, loopPercent=50) 
 
 start = (dimensions[0],dimensions[1])
 
 # DLS
 
-a=agent(m, start[0], start[1], footprints=True, color=COLOR.yellow, shape='square') 
-b=agent(m, start[0], start[1], footprints=True, color=COLOR.cyan, shape='square', filled=True) 
-dSearch,dlsPath,dfinalPath=DLS(m, start)
-m.tracePath({a:dSearch},delay=100)
-m.tracePath({b:dfinalPath},delay=100)
+# a=agent(m, start[0], start[1], footprints=True, color=COLOR.yellow, shape='square') 
+# b=agent(m, start[0], start[1], footprints=True, color=COLOR.cyan, shape='square', filled=True) 
+# dSearch,dlsPath,dfinalPath=DLS(m, start)
+# m.tracePath({a:dSearch},delay=100)
+# m.tracePath({b:dfinalPath},delay=100)
 
 # BFS
 
-# c=agent(m, start[0], start[1], footprints=True, color=COLOR.yellow, shape='square') 
-# d=agent(m, start[0], start[1], footprints=True, color=COLOR.cyan, shape='square', filled=True) 
-# bSearch,bfsPath,bfinalPath=BFS(m, start)
-# m.tracePath({c:bSearch},delay=100)
-# m.tracePath({d:bfinalPath},delay=100)
+c=agent(m, start[0], start[1], footprints=True, color=COLOR.yellow, shape='square') 
+d=agent(m, start[0], start[1], footprints=True, color=COLOR.cyan, shape='square', filled=True) 
+bSearch,bfsPath,bfinalPath=BFS(m, start)
+m.tracePath({c:bSearch},delay=100)
+m.tracePath({d:bfinalPath},delay=100)
 
 m.run()
